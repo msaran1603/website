@@ -32,6 +32,22 @@ Network policies do not conflict; they are additive. If any policy or policies s
 
 See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) reference for a full definition of the resource.
 
+Simple Network policy file with ingress:
+
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: access-nginx # pick a name
+spec:
+  podSelector:
+    matchLabels:
+      run: nginx # selector for the pods
+  ingress: # allow ingress traffic
+  - from:
+    - podSelector: # from pods
+        matchLabels: # with this label
+          access: granted
+
 An example NetworkPolicy might look like this:
 
 ```yaml
